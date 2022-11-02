@@ -52,9 +52,9 @@ Route::get('signup','CustomerController@getSignup');
 Route::post('signup','CustomerController@postSignup');
 
 /*product nè*/
-Route::get('product','ProductController@getListProduct');//danh sách sản phẩm theo danh mục thêm ?category=id
+Route::get('product','ProductController@getListProduct');//danh sách sản phẩm theo danh mục thêm ?category=id hay các biến get khác
 Route::get('product/detail/{id}','ProductController@getDetailProduct');
-Route::post('product/search','ProductController@postSearchProduct');
+//Route::post('product/search','ProductController@postSearchProduct');
 
 /*cart*/
 /*mini-cart*/

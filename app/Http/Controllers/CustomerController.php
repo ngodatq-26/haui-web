@@ -35,8 +35,7 @@ class CustomerController extends Controller
             $account->save();                          
         }
         else return back()->with(['typeMsg'=>'danger','msg'=>'Mật khẩu cũ không đúng']);
-        Auth::guard('account_customer')->logout();
-        return back()->with(['typeMsg'=>'success','msg'=>'Đăng xuất thành công']);
+        return back()->with(['typeMsg'=>'success','msg'=>'Đổi mật khẩu thành công']);
     }
     /*thong tiin ca nhan*/
 	public function getProfile(){
@@ -103,7 +102,7 @@ class CustomerController extends Controller
 		$customer = new Customer;
 		$customer->person_id = $person->id;
 		$customer->save();
-		return redirect(url('/login'))->with(['typeMsg'=>'info','msg'=>'Đã đăng ký thành công mời bạn đăng nhập']);
+		return back()->with(['typeMsg'=>'info','msg'=>'Đã đăng ký thành công mời bạn đăng nhập']);
 	}
     //backend
     public function getList(){
@@ -135,7 +134,9 @@ class CustomerController extends Controller
 		return back()->with(['typeMsg'=>'success','msg'=>'Cập nhật thành công']);
     }
     public function getDelete($id){
-    	Customer::destroy($id);
+    	//Customer::destroy($id);
+    	$account = Customer::find($id)->person->account;
+    	Account::destroy($account->id);
     	return back()->with(['typeMsg'=>'success','msg'=>'Xóa thành công']);
     }
 }

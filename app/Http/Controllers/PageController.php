@@ -25,7 +25,7 @@ class PageController extends Controller
     }
     #dashboard
     public function getAdminPage(){
-        #biểu đồ doanh thu theo 30 ngày
+        #biểu đồ doanh thu theo 15 ngày
         $currentDate = date('Y-m-d');
         $arrayDate = array();  
         $dateI = date('Y-m-d',strtotime('-15 Days'));
@@ -38,12 +38,14 @@ class PageController extends Controller
         }
         $arrayMoney = Order::select(DB::raw('SUM(grand_total) as total'),DB::raw('DATE(updated_at) as date'))->where('status','Đã nhận hàng')->groupBy('date')->get();
         $arrayLast = array();
-        foreach ($arrayDate as $key => $value) {
-            $arrayLast[$value] = 0;
+        foreach ($arrayDate as $key1 => $value1) {
+            $arrayLast[$value1] = 0;
+            foreach ($arrayMoney as $key2 => $value2) {
+                if($value2->date == $value1)
+                $arrayLast[$value2->date] = ($value2->total);
+            }
         }
-        foreach ($arrayMoney as $key => $value) {
-            $arrayLast[$value->date] = ($value->total);
-        }
+       
         #đơn hàng 
         $orders = Order::all();
         #khách hàng
@@ -52,6 +54,8 @@ class PageController extends Controller
         $reviews = Review::where('reviewed',1)->get();
         #biểu đồ cơ cấu số mặt hàng (không phải tồn kho) theo danh mục mà mình cung cấp
         $categories = Category::all();
+        //dd($arrayLast);
+
         return view("backend.dashboard",['arrayLast'=>$arrayLast,'orders'=>$orders,'customers'=>$customers,'reviews'=>$reviews,'categories'=>$categories]);
     }
 }
