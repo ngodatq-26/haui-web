@@ -47,7 +47,7 @@
             <li class="nav-item {{(request()->is('admin-page')) ? 'active' : '' }}">
                 <a class="nav-link" href="{{url('/admin-page')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Bảng điều khiển</span></a>
+                    <span>Tổng quan</span></a>
             </li>
             <!-- Nav Item - Pages Collapse danh mục -->
             <li class="nav-item {{(request()->is('admin-page/category*')) ? 'active' : '' }}">

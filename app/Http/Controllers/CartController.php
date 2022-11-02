@@ -82,7 +82,7 @@ class CartController extends Controller
     }
     public function destroyCartList(){
         session()->forget('cart');
-        return view('frontend.cart.cartlist');
+        return view('frontend.cart.cart');
     }
     public function updateCartList($id,$quantity){
         $cart = session('cart');

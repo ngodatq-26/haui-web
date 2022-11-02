@@ -136,7 +136,7 @@ class OrderController extends Controller
 				break;
 		}
 		$order->save();
-		return view('backend.order.detail',['order'=>$order])->with(['typeMsg'=>'success','msg'=>'Cập nhật thành công']);
+		return back()->with(['typeMsg'=>'success','msg'=>'Cập nhật thành công']);
 	}
 	
 }
